@@ -16,14 +16,14 @@ Below is the service file for running Hutch as a service. The required settings 
 Now you need to set the environment variables needed to run HutchAgent. These are on the lines starting with `Environment=`.
 
 1. Set `Queue__Hostname` to the URL of your queue host, e.g. `https://my-rabbitmq.example.com`.
-2. Set `Queue__Port` to the port number to connect to the queue host.
-3. Set `Queue__UserName` to your username on the queue host.
+2. Set `Queue__Port` to the port number to connect to the message queue host.
+3. Set `Queue__UserName` to your username on the message queue host.
 4. Set `Queue__Password` to the password for your user.
-5. Set `StoreDefaults__Host` to the host of your S3 store, e.g. `https://my-minio.com:9000`.
-6. Set `StoreDefaults__AccessKey` to the access key for your store.
-7. Set `StoreDefaults__SecretKey` to the secret key for your store.
-8. Set `StoreDefaults__Secure` to `true` if your store is accessed over HTTPS, else set it to `false`.
-9. Set `StoreDefaults__Bucket` to the name of the bucket where your results will be stored. This must already exist on your S3 store.
+5. Set `StoreDefaults__Host` to the host of your intermediary store, e.g. `https://my-minio.com:9000`.
+6. Set `StoreDefaults__AccessKey` to the access key for your intermediary store.
+7. Set `StoreDefaults__SecretKey` to the secret key for your intermediary store.
+8. Set `StoreDefaults__Secure` to `true` if your intermediary store is accessed over HTTPS, else set it to `false`.
+9. Set `StoreDefaults__Bucket` to the name of the bucket where your results will be stored. This must already exist in your intermediary store.
 10. Set `IdentityProvider__OpenIdBaseUrl` to the base URL of your OIDC provider.
 11. Set `IdentityProvider__ClientId` to the ID of your client on the provider.
 12. Set `IdentityProvider__ClientSecret` to the secret for your client.
