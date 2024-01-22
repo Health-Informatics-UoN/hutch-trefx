@@ -18,6 +18,7 @@
 - [ ] 🐛 Bug Fix
 - [ ] ⚡️ Optimization
 - [ ] 📝 Documentation Update
+- [ ] 🛠️ Repo maintenance
 
 ## Description
 
