@@ -8,7 +8,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "Hutch",
   tagline: "Dinosaurs are cool",
-  url: "https://hdruk.github.io",
+  url: "https://health-informatics-uon.github.io",
   baseUrl: "/hutch/",
   trailingSlash: false,
   onBrokenLinks: "throw",
@@ -17,7 +17,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "hdruk", // Usually your GitHub org/user name.
+  organizationName: "health-informatics-uon", // Usually your GitHub org/user name.
   projectName: "hutch", // Usually your repo name.
   deploymentBranch: "gh-pages",
 
@@ -38,7 +38,7 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/hdruk/hutch/tree/main/website/",
+          editUrl: "https://github.com/health-informatics-uon/hutch/tree/main/website/",
         },
         blog: false,
         theme: {
@@ -71,7 +71,7 @@ const config = {
             label: "User Guide",
           },
           {
-            href: "https://github.com/hdruk/hutch",
+            href: "https://github.com/health-informatics-uon/hutch",
             position: "right",
             className: "header-github-link",
             "aria-label": "GitHub repository",
@@ -90,7 +90,7 @@ const config = {
               },
               {
                 label: "Hutch GitHub",
-                href: "https://github.com/hdruk/hutch",
+                href: "https://github.com/health-informatics-uon/hutch",
               },
               {
                 label: "TRE-FX Project Website",

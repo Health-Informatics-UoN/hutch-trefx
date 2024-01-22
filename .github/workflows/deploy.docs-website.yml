@@ -1,5 +1,8 @@
 name: Deploy Docs Website
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch: # manual trigger
   push:
