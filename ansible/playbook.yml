@@ -24,7 +24,7 @@
     - name: Download Hutch
       ansible.builtin.get_url:
         dest: "{{ download_zip }}"
-        url: "https://github.com/HDRUK/hutch/releases/download/{{ hutch_version }}/hutch_dotnet-7.0.x.zip"
+        url: "https://github.com/HDRUK/hutch/releases/download/{{ hutch_version }}/hutch_linux-x64.zip"
         mode: "0644"
 
     - name: Make Install Directory
@@ -38,6 +38,12 @@
         src: "{{ download_zip }}"
         remote_src: true
         dest: "{{ install_dir }}"
+
+    - name: Update Program Permissions
+      ansible.builtin.file:
+        path: "{{ install_dir }}/HutchAgent"
+        state: "file"
+        mode: u+x
 
     - name: dotnet dev certs
       ansible.builtin.command:
