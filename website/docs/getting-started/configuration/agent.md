@@ -148,3 +148,31 @@ Hutch can be configured using the following source in [the usual .NET way](https
 |---------------|-------------|------|---------|
 |`StandaloneMode`|Hutch will skip TRE Controller interactions|`bool`|`false`|
 |`RetainFailures`|Hutch will not clean up working directories or database records for jobs that fail|`bool`|`false`|
+
+
+## Examples
+### `appsettings.json`
+```json
+"IdentityProvider": {
+  "ClientId": "my-client-id",
+  "ClientSecret": "my-client-secret",
+  "Username": "Alice",
+  "Password": "AlicesPassword"
+}
+```
+
+### Environment variables
+```
+IdentityProvider__ClientId=my-client-id
+IdentityProvider__ClientSecret=my-client-secret
+IdentityProvider__Username=Alice
+IdentityProvider__Password=AlicesPassword
+```
+
+### .NET User Secrets
+```json
+"IdentityProvider:ClientId": "my-client-id"
+"IdentityProvider:ClientSecret": "my-client-secret"
+"IdentityProvider:Username": "Alice"
+"IdentityProvider:Password": "AlicesPassword"
+```
