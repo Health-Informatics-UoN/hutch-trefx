@@ -17,7 +17,7 @@ The Hutch Agent is a .NET application written in C#. It is responsible for recei
 
 On your **local** machine, you will need to install [Ansible](https://www.ansible.com/). Then you will need to download the [Ansible playbooks](https://github.com/Health-Informatics-UoN/hutch/releases) for installing HutchAgent, the workflow executor ([WfExS](https://github.com/inab/WfExS-backend)) and all the side dependencies for the Hutch environment. Your **remote** machine must be accessible via `ssh` by your local machine. You must also have a user on the remote machine with `sudo` privileges.
 
-In the directory where you've downloaded and unpacked the Ansible playbooks, find the file `hutch-agent.service` in `playbooks/files`. Open this file in a text editor of your choice and alter the configuration following the instructions in the [Configuration section](/getting-started/configuration/agent.md).
+In the directory where you've downloaded and unpacked the Ansible playbooks, find the file `hutch-agent.service` in `playbooks/files`. Open this file in a text editor of your choice and set the configuration variables to suit your environment. Guidance on the use of the variables can be found [here](/getting-started/configuration/agent.md).
 
 Once the configuration is finished, you can deploy HutchAgent to your VM. 
 
