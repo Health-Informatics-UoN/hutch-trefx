@@ -11,15 +11,19 @@ import { SectionUnderConstruction } from "@site/src/components/admonitions/under
 The Hutch Agent is a .NET application written in C#. It is responsible for receiving 5-Safes RO-Crates with an approved workflow and triggering the execution of that workflow. It then awaits the results of the execution and packages them to be sent back to the TRE Controller.
 
 ## Installation to a remote Virtual Machine
-:::info Operating System
-- Ubuntu 22.04 LTS
+:::info
+Currently, we only support deploying to Ubuntu 22.04 LTS. The following instructions tell you how to do this using Ansible.
 :::
 
+### Installing Ansible
 On your **local** machine, you will need to install [Ansible](https://www.ansible.com/). Then you will need to download the [Ansible playbooks](https://github.com/Health-Informatics-UoN/hutch/releases) for installing HutchAgent, the workflow executor ([WfExS](https://github.com/inab/WfExS-backend)) and all the side dependencies for the Hutch environment. Your **remote** machine must be accessible via `ssh` by your local machine. You must also have a user on the remote machine with `sudo` privileges.
 
+### Providing HutchAgent configuration for Ansible
 In the directory where you've downloaded and unpacked the Ansible playbooks, find the file `hutch-agent.service` in `playbooks/files`. Open this file in a text editor of your choice and set the configuration variables to suit your environment. Guidance on the use of the variables can be found [here](/getting-started/configuration/agent.md).
 
 Once the configuration is finished, you can deploy HutchAgent to your VM. 
+
+### Running Ansible
 
 Open the file called `inventory.ini`, at the top directory where you downloaded the Ansible playbooks, and add either the IP address of the VM to which you are deploying or the hostname of the VM.
 
