@@ -66,7 +66,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`SkipExecutionUsingOutputFile`|The file to use to spoof a workflow execution|`string`||
-|`SkipFullProvenanceCrate`|Skip producing the full provenence crate?|`bool`|`false`|
+|`SkipFullProvenanceCrate`|Skip producing the full provenence crate? Calls WfExS without `--full` if `true`|`bool`|`false`|
 |`RemainAttached`|Remain attached to the executor rather than run in the background?|`bool`|`false`|
 
 ### ConnectionStrings
