@@ -19,7 +19,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `Paths__`
 - .NET User Secrets: Prefix the variable names with `Paths:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`WorkingDirectoryBase`|Hutch's working directory|`string`|`$HOME/hutch-workdir`|
 |`Jobs`|Sub-directory for per-job working directories|`string`|`jobs`|
@@ -29,7 +29,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `Queue__`
 - .NET User Secrets: Prefix the variable names with `Queue:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`Hostname`|**(Required)** The URL to the RabbitMQ instance hosting the queue|`string`||
 |`Port`|**(Required)** The port for the RabbitMQ instance|`int`||
@@ -41,7 +41,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `JobActionsQueueOptions__`
 - .NET User Secrets: Prefix the variable names with `JobActionsQueueOptions:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`QueueName`|The name of the job queue|`string`|`WorkflowJobActions`|
 |`PollingIntervalSeconds`|How often Hutch checks the queue for new Actions|`int`|`5`|
@@ -52,7 +52,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `StoreDefaults__`
 - .NET User Secrets: Prefix the variable names with `StoreDefaults:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`Host`|The URL to your S3 storage (e.g. MinIO)|`string`|`localhost:9000`|
 |`AccessKey`|**(Required)** The access key to your S3 storage|`string`||
@@ -65,7 +65,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `IdentityProvider__`
 - .NET User Secrets: Prefix the variable names with `IdentityProvider:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`ClientId`|**(Required)** The ID of your client on your OAuth2.0 provider|`string`||
 |`ClientSecret`|**(Required)** The secret of your client on your OAuth2.0 provider|`string`||
@@ -78,7 +78,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `WorkflowExecutor__`
 - .NET User Secrets: Prefix the variable names with `WorkflowExecutor:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`ExecutorPath`|The path to where the executor is installed|`string`|`$HOME/WfExS-backend`|
 |`VirtualEnvironmentPath`|The path to activate the executor's virtual environment|`string`|`$HOME/WfExS-backend/.pyWEenv/bin/activate`|
@@ -86,7 +86,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 |`ContainerEngine`|The name of the container engine to run workflows (can be `docker`, `singularity` or `podman`)|`string`|`docker`|
 
 #### Development-only
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`SkipExecutionUsingOutputFile`|The file to use to spoof a workflow execution|`string`||
 |`SkipFullProvenanceCrate`|Skip producing the full provenence crate?|`bool`|`false`|
@@ -97,7 +97,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `ConnectionStrings__`
 - .NET User Secrets: Prefix the variable names with `ConnectionStrings:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`ConnectionStrings__AgentDb`|The connection string for Hutch's internal database|`string`|`Data Source=HutchAgent.db`|
 
@@ -106,7 +106,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `ControllerApi__`
 - .NET User Secrets: Prefix the variable names with `ControllerApi:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`ControllerApi__BaseUrl`|**(Required)** The base URL for the TRE controller|`string`||
 
@@ -115,7 +115,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `CratePublishing__Publisher__`
 - .NET User Secrets: Prefix the variable names with `CratePublishing:Publisher:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`Id`|The identifier (typically a URL) for the Publisher in Results Crates|`string`||
 
@@ -124,7 +124,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `CratePublishing__License__`
 - .NET User Secrets: Prefix the variable names with `CratePublishing:License:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`Uri`|The URI to the license e.g. https://spdx.org/licenses/CC-BY-4.0|`string`||
 
@@ -133,7 +133,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `CratePublishing__License__Properties__`
 - .NET User Secrets: Prefix the variable names with `CratePublishing:License:Properties:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`Identifier`|The short-form of the license e.g. CC-BY-4.0|`string`||
 |`Name`|The long-form name of the license e.g. Creative Commons Attribution 4.0 International|`string`||
@@ -144,7 +144,7 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Environment variable: Prefix the variable names with `Flags__`
 - .NET User Secrets: Prefix the variable names with `Flags:`
 
-| Varibale name | Description | Type | Default |
+| Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`StandaloneMode`|Hutch will skip TRE Controller interactions|`bool`|`false`|
 |`RetainFailures`|Hutch will not clean up working directories or database records for jobs that fail|`bool`|`false`|
