@@ -15,9 +15,6 @@ Hutch can be configured using the following source in [the usual .NET way](https
 ## Available options
 
 ### Paths
-- `appsettings.json`: Create an object under the key `Paths`
-- Environment variable: Prefix the variable names with `Paths__`
-- .NET User Secrets: Prefix the variable names with `Paths:`
 
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
@@ -25,10 +22,6 @@ Hutch can be configured using the following source in [the usual .NET way](https
 |`Jobs`|Sub-directory for per-job working directories|`string`|`jobs`|
 
 ### Queue
-- `appsettings.json`: Create an object under the key `Queue`
-- Environment variable: Prefix the variable names with `Queue__`
-- .NET User Secrets: Prefix the variable names with `Queue:`
-
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`Hostname`|**(Required)** The URL to the RabbitMQ instance hosting the queue|`string`||
@@ -37,10 +30,6 @@ Hutch can be configured using the following source in [the usual .NET way](https
 |`Password`|**(Required)** The password the RabbitMQ instance|`string`||
 
 ### JobActionsQueueOptions
-- `appsettings.json`: Create an object under the key `JobActionsQueueOptions`
-- Environment variable: Prefix the variable names with `JobActionsQueueOptions__`
-- .NET User Secrets: Prefix the variable names with `JobActionsQueueOptions:`
-
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`QueueName`|The name of the job queue|`string`|`WorkflowJobActions`|
@@ -48,10 +37,6 @@ Hutch can be configured using the following source in [the usual .NET way](https
 |`MaxParallelism`|How many actions from the queue will Hutch run concurrently|`int`|`10`|
 
 ### StoreDefaults
-- `appsettings.json`: Create an object under the key `StoreDefaults`
-- Environment variable: Prefix the variable names with `StoreDefaults__`
-- .NET User Secrets: Prefix the variable names with `StoreDefaults:`
-
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`Host`|The URL to your S3 storage (e.g. MinIO)|`string`|`localhost:9000`|
@@ -61,10 +46,6 @@ Hutch can be configured using the following source in [the usual .NET way](https
 |`Bucket`|**(Required)** The name of your S3 storage bucket|`string`||
 
 ### IdentityProvider
-- `appsettings.json`: Create an object under the key `IdentityProvider`
-- Environment variable: Prefix the variable names with `IdentityProvider__`
-- .NET User Secrets: Prefix the variable names with `IdentityProvider:`
-
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`ClientId`|**(Required)** The ID of your client on your OAuth2.0 provider|`string`||
@@ -74,10 +55,6 @@ Hutch can be configured using the following source in [the usual .NET way](https
 
 
 ### WorkflowExecutor
-- `appsettings.json`: Create an object under the key `WorkflowExecutor`
-- Environment variable: Prefix the variable names with `WorkflowExecutor__`
-- .NET User Secrets: Prefix the variable names with `WorkflowExecutor:`
-
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`ExecutorPath`|The path to where the executor is installed|`string`|`$HOME/WfExS-backend`|
@@ -93,46 +70,26 @@ Hutch can be configured using the following source in [the usual .NET way](https
 |`RemainAttached`|Remain attached to the executor rather than run in the background?|`bool`|`false`|
 
 ### ConnectionStrings
-- `appsettings.json`: Create an object under the key `ConnectionStrings`
-- Environment variable: Prefix the variable names with `ConnectionStrings__`
-- .NET User Secrets: Prefix the variable names with `ConnectionStrings:`
-
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`ConnectionStrings__AgentDb`|The connection string for Hutch's internal database|`string`|`Data Source=HutchAgent.db`|
 
 ### ControllerApi
-- `appsettings.json`: Create an object under the key `ControllerApi`
-- Environment variable: Prefix the variable names with `ControllerApi__`
-- .NET User Secrets: Prefix the variable names with `ControllerApi:`
-
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`ControllerApi__BaseUrl`|**(Required)** The base URL for the TRE controller|`string`||
 
 ### CratePublishing - Publisher
-- `appsettings.json`: Create an object under the key `CratePublishing` and an object under that object under the key `Publisher`
-- Environment variable: Prefix the variable names with `CratePublishing__Publisher__`
-- .NET User Secrets: Prefix the variable names with `CratePublishing:Publisher:`
-
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`Id`|The identifier (typically a URL) for the Publisher in Results Crates|`string`||
 
 ### CratePublishing - License
-- `appsettings.json`: Create an object under the key `CratePublishing` and an object under that object under the key `License`
-- Environment variable: Prefix the variable names with `CratePublishing__License__`
-- .NET User Secrets: Prefix the variable names with `CratePublishing:License:`
-
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`Uri`|The URI to the license e.g. https://spdx.org/licenses/CC-BY-4.0|`string`||
 
 ### CratePublishing - License - Properties
-- `appsettings.json`: Create an object under the key `CratePublishing`, an object under that object under the key `License` and under that key, create another object under the key `Properties`
-- Environment variable: Prefix the variable names with `CratePublishing__License__Properties__`
-- .NET User Secrets: Prefix the variable names with `CratePublishing:License:Properties:`
-
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`Identifier`|The short-form of the license e.g. CC-BY-4.0|`string`||
@@ -140,10 +97,6 @@ Hutch can be configured using the following source in [the usual .NET way](https
 
 ## Feature flags (Development-only)
 ### Flags
-- `appsettings.json`: Create an object under the key `Flags`
-- Environment variable: Prefix the variable names with `Flags__`
-- .NET User Secrets: Prefix the variable names with `Flags:`
-
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
 |`StandaloneMode`|Hutch will skip TRE Controller interactions|`bool`|`false`|
