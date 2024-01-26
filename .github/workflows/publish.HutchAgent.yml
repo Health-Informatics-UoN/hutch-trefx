@@ -69,10 +69,10 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: hutch_${{ matrix.artifact == 'dotnet' && format('{0}-{1}', matrix.artifact, env.dotnet-version) || matrix.artifact }}
+          name: hutchagent_${{ matrix.artifact == 'dotnet' && format('{0}-{1}', matrix.artifact, env.dotnet-version) || matrix.artifact }}
           path: ${{ env.publish-dir }}
 
       - uses: actions/upload-artifact@v3
         with:
-          name: hutch_installation
+          name: hutchagent_ansible
           path: ansible

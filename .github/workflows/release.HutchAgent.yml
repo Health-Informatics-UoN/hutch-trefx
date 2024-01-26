@@ -90,6 +90,7 @@ jobs:
 
             - Hutch Agent for Linux (x64) native
             - Hutch Agent for the .NET Runtime (cross platform, requires .NET 7.x)
+            - Hutch Agent Ansible Playbooks
           generateReleaseNotes: true
           prerelease: ${{ steps.version.outputs.pre-release != '' }}
           makeLatest: ${{ env.is-latest }}
