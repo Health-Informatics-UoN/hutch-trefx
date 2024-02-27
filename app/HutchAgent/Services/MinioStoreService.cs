@@ -66,7 +66,7 @@ public class MinioStoreServiceFactory
         Version = "2011-06-15", // AWS stipulates this version for this endpoint...
         DurationSeconds = 604800 // we ask for the max (7 days) - the credentials issued may be shorter
       })
-      .SetQueryParam("Bearer", token, true);
+      .SetQueryParam("Token", token, true);
 
     try
     {
@@ -147,7 +147,7 @@ public class MinioStoreServiceFactory
 
       // Get an OIDC token
       var token = await _identity.RequestClientAccessToken(_identityOptions);
-
+      
 
       // Get MinIO STS credentials with the user's identity token
       // https://min.io/docs/minio/linux/developers/security-token-service/AssumeRoleWithWebIdentity.html#minio-sts-assumerolewithwebidentity
