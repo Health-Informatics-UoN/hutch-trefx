@@ -103,6 +103,6 @@ services:
     ports:
       - 5341:80
     volumes:
-      - seq_data:/data
+      - $HOME/seq-data:/data
     environment:
       - ACCEPT_EULA=Y
