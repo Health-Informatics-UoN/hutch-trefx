@@ -178,7 +178,7 @@ public class OpenIdIdentityService
     // TODO any claim validation Hutch cares about? somewhat depends on use case (e.g. Controller vs Store?)
 
     // return the tokens for use
-    _logger.LogInformation("Access Token: {}; IdentityToken: {}", tokenResponse.AccessToken,
+    _logger.LogInformation("Access Token: {AccessToken}; IdentityToken: {IdentityToken}", tokenResponse.AccessToken,
       tokenResponse.IdentityToken);
     return tokenResponse.AccessToken;
   }
