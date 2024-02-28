@@ -122,7 +122,7 @@ public class OpenIdIdentityService
       Scope = "openid" // we may want an id_token as well as an access_token when acting as a user
     });
 
-    _logger.LogInformation("ClientId: {Id}; ClientSecret: {}; Username: {Username}; Password: {}",
+    _logger.LogInformation("ClientId: {Id}; ClientSecret: {Secret}; Username: {Username}; Password: {Password}",
       clientId,
       secret,
       username,
