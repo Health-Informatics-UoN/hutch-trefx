@@ -60,6 +60,7 @@ public class OpenIdIdentityService
 
   private async Task<DiscoveryDocumentResponse> GetDiscoveryDocument()
   {
+    _logger.LogInformation("OpenIdBaseUrl: {BaseUrl}", _openIdOptions.OpenIdBaseUrl);
     var disco = await _http.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
     {
       Address = _openIdOptions.OpenIdBaseUrl,
@@ -120,6 +121,12 @@ public class OpenIdIdentityService
       Password = password,
       Scope = "openid" // we may want an id_token as well as an access_token when acting as a user
     });
+
+    _logger.LogInformation("ClientId: {Id}; ClientSecret: {}; Username: {Username}; Password: {}",
+      clientId,
+      secret,
+      username,
+      password);
 
     if (tokenResponse.IsError)
     {
