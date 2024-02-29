@@ -60,7 +60,6 @@ public class OpenIdIdentityService
 
   private async Task<DiscoveryDocumentResponse> GetDiscoveryDocument()
   {
-    _logger.LogInformation("OpenIdBaseUrl: {BaseUrl}", _openIdOptions.OpenIdBaseUrl);
     var disco = await _http.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
     {
       Address = _openIdOptions.OpenIdBaseUrl,
