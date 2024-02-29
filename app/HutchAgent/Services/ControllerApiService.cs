@@ -128,7 +128,7 @@ public class ControllerApiService
       });
 
     var request = _http.Request(url).WithOAuthBearerToken(_accessToken);
-    _logger.LogInformation("Submission request {}", request);
+    _logger.LogInformation("Submission request {Request}", request);
 
     if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
     await request.PostAsync();
