@@ -118,6 +118,7 @@ public class InitiateEgressActionHandler : IActionHandler
       : await _controller.RequestEgressBucket(job.Id);
 
     var store = await _storeFactory.Create(_mapper.Map<MinioOptions>(egressDetails));
+    _logger.LogInformation("Bucket name: {Name}", egressDetails.Bucket);
 
     // Record the full storage details for later use
     job.EgressTarget = egressDetails is not null
