@@ -113,6 +113,7 @@ public class InitiateEgressActionHandler : IActionHandler
 
     // 3. Get target bucket for egress checks
     var useDefaultStore = await _features.IsEnabledAsync(FeatureFlags.StandaloneMode);
+    _logger.LogInformation("Use default store?: {Value}", useDefaultStore);
     var egressDetails = useDefaultStore
       ? null
       : await _controller.RequestEgressBucket(job.Id);
