@@ -127,10 +127,11 @@ public class ControllerApiService
         description
       });
 
+    var request = _http.Request(url).WithOAuthBearerToken(_accessToken);
+    _logger.LogInformation("Submission request {}", request);
+
     if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
-    await _http.Request(url)
-      .WithOAuthBearerToken(_accessToken)
-      .PostAsync();
+    await request.PostAsync();
     // TODO attempt refreshing if token rejected?
   }
 
