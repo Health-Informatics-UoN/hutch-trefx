@@ -122,12 +122,6 @@ public class OpenIdIdentityService
       Scope = "openid" // we may want an id_token as well as an access_token when acting as a user
     });
 
-    _logger.LogInformation("ClientId: {Id}; ClientSecret: {Secret}; Username: {Username}; Password: {Password}",
-      clientId,
-      secret,
-      username,
-      password);
-
     if (tokenResponse.IsError)
     {
       _logger.LogError("Attempted OIDC Token Request failed: {Error}", tokenResponse.Error);
@@ -185,8 +179,6 @@ public class OpenIdIdentityService
     // TODO any claim validation Hutch cares about? somewhat depends on use case (e.g. Controller vs Store?)
 
     // return the tokens for use
-    _logger.LogInformation("Access Token: {AccessToken}; IdentityToken: {IdentityToken}", tokenResponse.AccessToken,
-      tokenResponse.IdentityToken);
     return tokenResponse.AccessToken;
   }
 
