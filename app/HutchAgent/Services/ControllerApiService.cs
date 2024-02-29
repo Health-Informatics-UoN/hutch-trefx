@@ -129,6 +129,7 @@ public class ControllerApiService
 
     var request = _http.Request(url).WithOAuthBearerToken(_accessToken);
     _logger.LogInformation("BaseUrl: {BaseUrl}", _http.BaseUrl);
+    _logger.LogInformation("API Options BaseUrl: {BaseUrl}", _apiOptions.BaseUrl);
     _logger.LogInformation("Submission request {Request}", request.Url);
 
     if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
