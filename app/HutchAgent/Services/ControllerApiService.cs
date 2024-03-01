@@ -68,7 +68,7 @@ public class ControllerApiService
     var url = "Submission/GetOutputBucketInfo"
       .SetQueryParam("subId", jobId);
 
-    _logger.LogDebug("Requesting Egress Bucket from {Url}", Url.Combine(_apiOptions.BaseUrl, url));
+    _logger.LogInformation("Requesting Egress Bucket from {Url}", Url.Combine(_apiOptions.BaseUrl, url));
 
     if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
     return await _http.Request(url)
