@@ -61,6 +61,7 @@ public class ControllerApiService
   /// <returns></returns>
   public async Task<FileStorageDetails> RequestEgressBucket(string jobId)
   {
+    _logger.LogInformation("Requesting Bucket details");
     if (await _features.IsEnabledAsync(FeatureFlags.StandaloneMode))
       throw new InvalidOperationException(_standaloneModeError);
 
