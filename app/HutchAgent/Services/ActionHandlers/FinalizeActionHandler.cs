@@ -116,6 +116,7 @@ public class FinalizeActionHandler : IActionHandler
     _logger.LogInformation("FinaliseWorkflow JobEgressTarget {Target}", job.EgressTarget);
 
     var egressTarget = JsonSerializer.Deserialize<FileStorageDetails>(job.EgressTarget);
+    _logger.LogInformation("Generating store info for FinalizaActionHandler.UploadFinalCrate");
     var store = await _storeFactory.Create(_mapper.Map<MinioOptions>(egressTarget));
 
     var pathPrefix = egressTarget?.Path
