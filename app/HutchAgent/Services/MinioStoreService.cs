@@ -133,7 +133,6 @@ public class MinioStoreServiceFactory
   /// <returns>A <see cref="MinioStoreService"/> instance configured with the provided options.</returns>
   public async Task<MinioStoreService> Create(MinioOptions? options = null)
   {
-    _logger.LogInformation("Received options: {Opts}", options?.Bucket);
     var useOpenId = string.IsNullOrWhiteSpace(options?.SecretKey)
                     && string.IsNullOrWhiteSpace(options?.AccessKey)
                     && _identityOptions.IsConfigComplete();
