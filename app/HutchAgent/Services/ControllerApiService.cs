@@ -61,14 +61,11 @@ public class ControllerApiService
   /// <returns></returns>
   public async Task<FileStorageDetails> RequestEgressBucket(string jobId)
   {
-    _logger.LogInformation("Requesting Bucket details");
     if (await _features.IsEnabledAsync(FeatureFlags.StandaloneMode))
       throw new InvalidOperationException(_standaloneModeError);
 
     var url = "Submission/GetOutputBucketInfo"
       .SetQueryParam("subId", jobId);
-
-    _logger.LogInformation("Requesting Egress Bucket from {Url}", Url.Combine(_apiOptions.BaseUrl, url));
 
     if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
     return await _http.Request(url)
