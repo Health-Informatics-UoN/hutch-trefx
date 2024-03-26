@@ -113,16 +113,11 @@ public class FinalizeActionHandler : IActionHandler
       throw new InvalidOperationException(
         $"Finalized Job {job.Id} cannot be egressed as no egress target was recorded.");
 
-    _logger.LogInformation("FinaliseWorkflow JobEgressTarget {Target}", job.EgressTarget);
-
     var egressTarget = JsonSerializer.Deserialize<FileStorageDetails>(job.EgressTarget);
-    _logger.LogInformation("Generating store info for FinalizaActionHandler.UploadFinalCrate");
     var store = await _storeFactory.Create(_mapper.Map<MinioOptions>(egressTarget));
 
-    var pathPrefix = egressTarget?.Path
-                     ?? (await _features.IsEnabledAsync(FeatureFlags.StandaloneMode)
-                       ? job.Id
-                       : string.Empty);
+    var pathPrefix = egressTarget?.Path ??
+                     (await _features.IsEnabledAsync(FeatureFlags.StandaloneMode) ? job.Id : string.Empty);
     var finalObjectId = Path.Combine(pathPrefix, _finalPackageFilename);
 
     // Make sure results store exists
