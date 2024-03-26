@@ -67,8 +67,6 @@ public class ControllerApiService
     var url = "Submission/GetOutputBucketInfo"
       .SetQueryParam("subId", jobId);
 
-    _logger.LogDebug("Requesting Egress Bucket from {Url}", Url.Combine(_apiOptions.BaseUrl, url));
-
     if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
     return await _http.Request(url)
              .WithOAuthBearerToken(_accessToken)
@@ -128,9 +126,7 @@ public class ControllerApiService
       });
 
     if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
-    await _http.Request(url)
-      .WithOAuthBearerToken(_accessToken)
-      .PostAsync();
+    await _http.Request(url).WithOAuthBearerToken(_accessToken).PostAsync();
     // TODO attempt refreshing if token rejected?
   }
 
