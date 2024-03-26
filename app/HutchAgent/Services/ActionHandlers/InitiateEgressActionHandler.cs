@@ -113,11 +113,9 @@ public class InitiateEgressActionHandler : IActionHandler
 
     // 3. Get target bucket for egress checks
     var useDefaultStore = await _features.IsEnabledAsync(FeatureFlags.StandaloneMode);
-    _logger.LogInformation("Use default store?: {Value}", useDefaultStore);
     var egressDetails = useDefaultStore
       ? null
       : await _controller.RequestEgressBucket(job.Id);
-    _logger.LogInformation("EgressDetailsHost: {Host}", egressDetails.Host);
 
     var store = await _storeFactory.Create(_mapper.Map<MinioOptions>(egressDetails));
 
@@ -126,7 +124,6 @@ public class InitiateEgressActionHandler : IActionHandler
       ? JsonSerializer.Serialize(egressDetails)
       : JsonSerializer.Serialize(_storeFactory.DefaultOptions);
     await _jobs.Set(job);
-    _logger.LogInformation("Egress target: {Target}", job.EgressTarget);
 
     _logger.LogDebug("job [{JobId}] Egress Target: {Target}", job.Id, job.EgressTarget);
 
