@@ -76,6 +76,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseSerilogRequestLogging();
 
+// HTTPS Redirect
 var httpsConfig = new HttpsConfig();
 app.Configuration.GetSection("HttpsConfig").Bind(httpsConfig);
 if (!httpsConfig.DisableHttpsRedirection)
