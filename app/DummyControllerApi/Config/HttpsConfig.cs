@@ -1,4 +1,4 @@
-namespace DummyControllerApi.Constants;
+namespace DummyControllerApi.Config;
 
 public class HttpsConfig
 {
