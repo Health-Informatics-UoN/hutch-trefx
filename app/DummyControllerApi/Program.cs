@@ -47,7 +47,8 @@ builder.Services.AddAuthorization();
 // Configure Options Models
 builder.Services
   .Configure<EgressBucketDetailsOptions>(builder.Configuration.GetSection("EgressBucketDetails"))
-  .Configure<WebHookOptions>(builder.Configuration.GetSection("WebHooks"));
+  .Configure<WebHookOptions>(builder.Configuration.GetSection("WebHooks"))
+  .Configure<HttpsConfig>(builder.Configuration.GetSection("HttpsConfig"));
 
 // MVC and stuff
 builder.Services.AddControllers();
@@ -75,7 +76,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseSerilogRequestLogging();
 
-app.UseHttpsRedirection();
+// HTTPS Redirect
+var httpsConfig = new HttpsConfig();
+app.Configuration.GetSection("HttpsConfig").Bind(httpsConfig);
+if (!httpsConfig.DisableHttpsRedirection)
+{
+  app.UseHttpsRedirection();
+}
 
 app
   .UseAuthentication()
