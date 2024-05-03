@@ -77,7 +77,8 @@ builder.Services
   .Configure<CratePublishingOptions>(builder.Configuration.GetSection("CratePublishing"))
   .Configure<ControllerApiOptions>(builder.Configuration.GetSection("ControllerApi"))
   .Configure<OpenIdOptions>(builder.Configuration.GetSection("IdentityProvider"))
-  .Configure<HttpsConfig>(builder.Configuration.GetSection("HttpsConfig"));
+  .Configure<HttpsConfig>(builder.Configuration.GetSection("HttpsConfig"))
+  .Configure<AuthConfig>(builder.Configuration.GetSection("AuthConfig"));
 
 // JobAction Handlers
 builder.Services
@@ -106,6 +107,9 @@ builder.Services
   .AddTransient<IQueueWriter, RabbitQueueWriter>()
   .AddTransient<IQueueReader, RabbitQueueReader>();
 
+var authConfig = new AuthConfig();
+builder.Configuration.GetSection("AuthConfig").Bind(authConfig);
+
 #endregion
 
 var app = builder.Build();
@@ -119,7 +123,16 @@ app.UseSwaggerUI(options =>
   options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
   options.RoutePrefix = string.Empty;
 });
-app.MapControllers();
+
+// Use auth?
+if (!authConfig.DisableAuth)
+{
+  app.MapControllers().RequireAuthorization();
+}
+else
+{
+  app.MapControllers();
+}
 
 // HTTPS Redirect
 var httpsConfig = new HttpsConfig();
