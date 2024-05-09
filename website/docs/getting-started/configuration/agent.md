@@ -53,6 +53,41 @@ Hutch can be configured using the following source in [the usual .NET way](https
 |`Username`|**(Required)** Your username on your client on your OAuth2.0 provider|`string`||
 |`Password`|**(Required)** Your password on your client on your OAuth2.0 provider|`string`||
 
+### Serilog
+Use these settings to configure `HutchAgent`'s logging behaviour.
+
+| Variable name | Description | Type | Default |
+|---------------|-------------|------|---------|
+|`Using`|The sinks to send your logging output|`string[]`|`["Serilog.Sinks.Console"]`|
+|`Enrich`||`string[]`|`["FromLogContext", "WithThreadId"]`|
+|`MinimumLevel`|Arguments for the minimum logging level|`object`|[see here](#minimumlevel-default)|
+|`WriteTo`|Options for output sinks|`object[]`|[see here](#writeto-default)|
+
+#### `MinimumLevel` default
+```json
+{
+  "Default": "Information",
+  "Override": {
+    "Microsoft.Hosting.Lifetime": "Information",
+    "Hutch": "Information",
+    "Microsoft": "Warning",
+    "System": "Warning"
+  }
+}
+```
+
+#### `WriteTo` default
+```json
+[
+  {
+    "Name": "Console",
+    "Args": {
+      "outputTemplate": "[{Timestamp:HH:mm:ss} {Level:u4}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}",
+      "theme": "Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console"
+    }
+  }
+]
+```
 
 ### WorkflowExecutor
 | Variable name | Description | Type | Default |

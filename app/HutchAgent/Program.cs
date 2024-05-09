@@ -17,7 +17,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((context, configuration) => 
+builder.Host.UseSerilog((context, configuration) =>
   configuration.ReadFrom.Configuration(context.Configuration));
 
 
@@ -64,8 +64,8 @@ builder.Services.AddSwaggerGen(o =>
 builder.Services
   .AddAutoMapper(typeof(Program).Assembly)
   .AddSingleton<IFlurlClientFactory, PerBaseUrlFlurlClientFactory>()
-  .AddHttpClient()  // We prefer Flurl for most use cases, but IdentityModel has extensions for vanilla HttpClient
-  .AddTransient<IFileSystem,FileSystem>();
+  .AddHttpClient() // We prefer Flurl for most use cases, but IdentityModel has extensions for vanilla HttpClient
+  .AddTransient<IFileSystem, FileSystem>();
 
 // IOptions
 builder.Services
@@ -76,7 +76,9 @@ builder.Services
   .Configure<WorkflowTriggerOptions>(builder.Configuration.GetSection("WorkflowExecutor"))
   .Configure<CratePublishingOptions>(builder.Configuration.GetSection("CratePublishing"))
   .Configure<ControllerApiOptions>(builder.Configuration.GetSection("ControllerApi"))
-  .Configure<OpenIdOptions>(builder.Configuration.GetSection("IdentityProvider"));
+  .Configure<OpenIdOptions>(builder.Configuration.GetSection("IdentityProvider"))
+  .Configure<HttpsConfig>(builder.Configuration.GetSection("HttpsConfig"))
+  .Configure<AuthConfig>(builder.Configuration.GetSection("AuthConfig"));
 
 // JobAction Handlers
 builder.Services
@@ -105,6 +107,9 @@ builder.Services
   .AddTransient<IQueueWriter, RabbitQueueWriter>()
   .AddTransient<IQueueReader, RabbitQueueReader>();
 
+var authConfig = new AuthConfig();
+builder.Configuration.GetSection("AuthConfig").Bind(authConfig);
+
 #endregion
 
 var app = builder.Build();
@@ -118,7 +123,24 @@ app.UseSwaggerUI(options =>
   options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
   options.RoutePrefix = string.Empty;
 });
-app.MapControllers();
+
+// Use auth?
+if (!authConfig.DisableAuth)
+{
+  app.MapControllers().RequireAuthorization();
+}
+else
+{
+  app.MapControllers();
+}
+
+// HTTPS Redirect
+var httpsConfig = new HttpsConfig();
+app.Configuration.GetSection("HttpsConfig").Bind(httpsConfig);
+if (!httpsConfig.DisableHttpsRedirection)
+{
+  app.UseHttpsRedirection();
+}
 
 #region Automatic Migrations
 

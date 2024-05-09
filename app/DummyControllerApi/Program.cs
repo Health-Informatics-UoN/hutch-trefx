@@ -18,36 +18,42 @@ if (!webhookOptions.CallbackUrl.IsNullOrEmpty() && !webhookOptions.VerifySsl)
   FlurlHttp.ConfigureClient(webhookOptions.CallbackUrl, cli =>
     cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
 
-
-// Auth
-// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//  .AddJwtBearer(
-//    opts =>
-//    {
-//      opts.TokenValidationParameters = new TokenValidationParameters
-//      {
-        // We basically validate nothing about the token to avoid needing extra config about oidc.
-        // We just want to confirm Hutch is sending an access token for a user.
-        // Everything else will be environment setup dependent anyway
-//        ValidateActor = false,
-//        ValidateIssuer = false,
-//        ValidateIssuerSigningKey = false,
-//        ValidateLifetime = false,
-//        ValidateAudience = false,
-//        ValidateTokenReplay = false,
-//        RequireSignedTokens = false,
-//        SignatureValidator = (token, _) => new JwtSecurityToken(token),
-
-//        RequireExpirationTime = true,
-//        RequireAudience = true,
-//      };
-//    });
-// builder.Services.AddAuthorization();
-
 // Configure Options Models
 builder.Services
   .Configure<EgressBucketDetailsOptions>(builder.Configuration.GetSection("EgressBucketDetails"))
-  .Configure<WebHookOptions>(builder.Configuration.GetSection("WebHooks"));
+  .Configure<WebHookOptions>(builder.Configuration.GetSection("WebHooks"))
+  .Configure<HttpsConfig>(builder.Configuration.GetSection("HttpsConfig"))
+  .Configure<AuthConfig>(builder.Configuration.GetSection("AuthConfig"));
+
+// Auth
+var authConfig = new AuthConfig();
+builder.Configuration.GetSection("AuthConfig").Bind(authConfig);
+if (!authConfig.DisableAuth)
+{
+  builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(
+      opts =>
+      {
+        opts.TokenValidationParameters = new TokenValidationParameters
+        {
+          // We basically validate nothing about the token to avoid needing extra config about oidc.
+          // We just want to confirm Hutch is sending an access token for a user.
+          // Everything else will be environment setup dependent anyway
+          ValidateActor = false,
+          ValidateIssuer = false,
+          ValidateIssuerSigningKey = false,
+          ValidateLifetime = false,
+          ValidateAudience = false,
+          ValidateTokenReplay = false,
+          RequireSignedTokens = false,
+          SignatureValidator = (token, _) => new JwtSecurityToken(token),
+
+          RequireExpirationTime = true,
+          RequireAudience = true,
+        };
+      });
+  builder.Services.AddAuthorization();
+}
 
 // MVC and stuff
 builder.Services.AddControllers();
@@ -75,12 +81,26 @@ if (app.Environment.IsDevelopment())
 
 app.UseSerilogRequestLogging();
 
-// app.UseHttpsRedirection();
+// HTTPS Redirect
+var httpsConfig = new HttpsConfig();
+app.Configuration.GetSection("HttpsConfig").Bind(httpsConfig);
+if (!httpsConfig.DisableHttpsRedirection)
+{
+  app.UseHttpsRedirection();
+}
 
-//app
-//  .UseAuthentication()
-//  .UseAuthorization();
+// Use auth?
+if (!authConfig.DisableAuth)
+{
+  app
+    .UseAuthentication()
+    .UseAuthorization();
 
-app.MapControllers(); //.RequireAuthorization();
+  app.MapControllers().RequireAuthorization();
+}
+else
+{
+  app.MapControllers();
+}
 
 app.Run();

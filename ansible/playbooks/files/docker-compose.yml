@@ -95,3 +95,14 @@ services:
       - $HOME/nginx.conf:/etc/nginx/nginx.conf:ro
       - $HOME/cert.crt:/etc/nginx/cert.crt:ro
       - $HOME/key.pem:/etc/nginx/key.pem:ro
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    restart: always
+    ports:
+      - 5341:80
+    volumes:
+      - $HOME/seq-data:/data
+    environment:
+      - ACCEPT_EULA=Y

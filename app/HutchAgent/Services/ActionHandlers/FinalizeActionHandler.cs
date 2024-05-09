@@ -116,10 +116,8 @@ public class FinalizeActionHandler : IActionHandler
     var egressTarget = JsonSerializer.Deserialize<FileStorageDetails>(job.EgressTarget);
     var store = await _storeFactory.Create(_mapper.Map<MinioOptions>(egressTarget));
 
-    var pathPrefix = egressTarget?.Path
-     ?? (await _features.IsEnabledAsync(FeatureFlags.StandaloneMode)
-       ? job.Id
-       : string.Empty);
+    var pathPrefix = egressTarget?.Path ??
+                     (await _features.IsEnabledAsync(FeatureFlags.StandaloneMode) ? job.Id : string.Empty);
     var finalObjectId = Path.Combine(pathPrefix, _finalPackageFilename);
 
     // Make sure results store exists
