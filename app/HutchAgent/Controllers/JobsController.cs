@@ -26,14 +26,19 @@ public class JobsController : ControllerBase
   private readonly JobLifecycleService _job;
   private readonly PathOptions _paths;
 
+
+private readonly ILogger<JobsController> _logger;
+
   public JobsController(
     IOptions<JobActionsQueueOptions> queueOptions,
     IQueueWriter queueWriter,
     WorkflowJobService jobs,
     StatusReportingService status,
     JobLifecycleService job,
-    IOptions<PathOptions> paths)
+    IOptions<PathOptions> paths,
+    ILogger<JobsController> logger)
   {
+_logger = logger;
     _queueWriter = queueWriter;
     _jobs = jobs;
     _status = status;
@@ -249,6 +254,8 @@ public class JobsController : ControllerBase
   public async Task<ActionResult<JobStatusModel>> Submit(SubmitJobModel model)
   {
     if (!ModelState.IsValid) return BadRequest();
+
+_logger.LogDebug($"Submitted model: {JsonSerializer.Serialize(model)}");
 
     // Check mutual exclusivity of remote crate details
     if (model.CrateUrl is not null && model.CrateSource is not null)

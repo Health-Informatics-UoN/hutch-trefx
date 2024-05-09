@@ -2,7 +2,6 @@ namespace HutchAgent.Constants;
 
 public static class FeatureFlags
 {
-  
   /// <summary>
   /// Operate without connection to a TRE Controller.
   /// StoreDefaults will be used for Egress Storage.
@@ -16,4 +15,9 @@ public static class FeatureFlags
   /// When possible, retain the working directory and db records for jobs that have failed
   /// </summary>
   public const string RetainFailures = nameof(RetainFailures);
+
+  /// <summary>
+  /// Set whether <c>HutchAgent</c> should use OIDC for auth.
+  /// </summary>
+  public const string UseOidc = nameof(UseOidc);
 }

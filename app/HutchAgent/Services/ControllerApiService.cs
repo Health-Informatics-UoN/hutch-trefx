@@ -41,9 +41,17 @@ public class ControllerApiService
     _http = httpFactory.Get(_apiOptions.BaseUrl);
 
     // initialise tokens
-    var tokens = _identity.RequestUserTokens(_identityOptions).Result;
-    _accessToken = tokens.access;
-    _refreshToken = tokens.refresh;
+    if (_features.IsEnabledAsync(FeatureFlags.UseOidc).Result)
+    {
+      var tokens = _identity.RequestUserTokens(_identityOptions).Result;
+      _accessToken = tokens.access;
+      _refreshToken = tokens.refresh;
+    }
+    else
+    {
+      _accessToken = string.Empty;
+      _refreshToken = string.Empty;
+    }
   }
 
   private async Task UpdateToken()
@@ -67,9 +75,16 @@ public class ControllerApiService
     var url = "Submission/GetOutputBucketInfo"
       .SetQueryParam("subId", jobId);
 
-    if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
-    return await _http.Request(url)
-             .WithOAuthBearerToken(_accessToken)
+    var request = _http.Request(url);
+
+    // Add bearer token if configured to use OIDC
+    if (await _features.IsEnabledAsync(FeatureFlags.UseOidc))
+    {
+      if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
+      request = request.WithOAuthBearerToken(_accessToken);
+    }
+
+    return await request
              .GetAsync()
              .ReceiveJson<GetOutputBucketInfoReponse>()
            ?? throw new InvalidOperationException(
@@ -90,12 +105,19 @@ public class ControllerApiService
 
     var url = "Submission/FilesReadyForReview";
 
+    var request = _http.Request(url);
+
+    // Add bearer token if configured to use OIDC
+    if (await _features.IsEnabledAsync(FeatureFlags.UseOidc))
+    {
+      if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
+      request = request.WithOAuthBearerToken(_accessToken);
+    }
+
     _logger.LogInformation(
       "Job [{JobId}]: Confirming with TRE Controller API that Egress Outputs have been transferred", jobId);
 
-    if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
-    await _http.Request(url)
-      .WithOAuthBearerToken(_accessToken)
+    await request
       .PostJsonAsync(
         new FilesReadyForReviewRequest()
         {
@@ -125,8 +147,16 @@ public class ControllerApiService
         description
       });
 
-    if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
-    await _http.Request(url).WithOAuthBearerToken(_accessToken).PostAsync();
+    var request = _http.Request(url);
+
+    // Add bearer token if configured to use OIDC
+    if (await _features.IsEnabledAsync(FeatureFlags.UseOidc))
+    {
+      if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
+      request = request.WithOAuthBearerToken(_accessToken);
+    }
+
+    await request.PostAsync();
     // TODO attempt refreshing if token rejected?
   }
 
@@ -144,9 +174,16 @@ public class ControllerApiService
 
     var url = "Submission/FinalOutcome";
 
-    if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
-    await _http.Request(url)
-      .WithOAuthBearerToken(_accessToken)
+    var request = _http.Request(url);
+
+    // Add bearer token if configured to use OIDC
+    if (await _features.IsEnabledAsync(FeatureFlags.UseOidc))
+    {
+      if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
+      request = request.WithOAuthBearerToken(_accessToken);
+    }
+
+    await request
       .PostJsonAsync(new FinalOutcomeRequest
       {
         SubId = jobId,

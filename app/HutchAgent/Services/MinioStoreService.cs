@@ -2,7 +2,9 @@ using System.Xml.Linq;
 using Flurl;
 using Flurl.Http;
 using HutchAgent.Config;
+using HutchAgent.Constants;
 using Microsoft.Extensions.Options;
+using Microsoft.FeatureManagement;
 using Minio;
 using Minio.Exceptions;
 
@@ -17,18 +19,20 @@ public class MinioStoreServiceFactory
   private readonly ILogger<MinioStoreServiceFactory> _logger;
   private readonly OpenIdIdentityService _identity;
   private readonly OpenIdOptions _identityOptions;
+  private readonly IFeatureManager _features;
 
   public MinioStoreServiceFactory(
     IOptions<MinioOptions> defaultOptions,
     IServiceProvider services,
     IOptions<OpenIdOptions> identityOptions,
     ILogger<MinioStoreServiceFactory> logger,
-    OpenIdIdentityService identity)
+    OpenIdIdentityService identity, IFeatureManager features)
   {
     DefaultOptions = defaultOptions.Value;
     _services = services;
     _logger = logger;
     _identity = identity;
+    _features = features;
     _identityOptions = identityOptions.Value;
   }
 
@@ -133,9 +137,7 @@ public class MinioStoreServiceFactory
   /// <returns>A <see cref="MinioStoreService"/> instance configured with the provided options.</returns>
   public async Task<MinioStoreService> Create(MinioOptions? options = null)
   {
-    var useOpenId = string.IsNullOrWhiteSpace(options?.SecretKey)
-                    && string.IsNullOrWhiteSpace(options?.AccessKey)
-                    && _identityOptions.IsConfigComplete();
+    var useOpenId = await _features.IsEnabledAsync(FeatureFlags.UseOidc);
 
     var mergedOptions = MergeOptionsWithDefaults(options);
 
