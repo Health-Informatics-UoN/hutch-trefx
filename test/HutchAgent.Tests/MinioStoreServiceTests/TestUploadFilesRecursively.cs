@@ -14,7 +14,7 @@ public class TestUploadFilesRecursively : IClassFixture<UploadFilesRecursivelyFi
   public TestUploadFilesRecursively(UploadFilesRecursivelyFixture fixture)
   {
     _fixture = fixture;
-    
+
     _minio
       .Setup(c => c.BucketExistsAsync(It.IsAny<BucketExistsArgs>(), default))
       .ReturnsAsync(true);
@@ -22,7 +22,7 @@ public class TestUploadFilesRecursively : IClassFixture<UploadFilesRecursivelyFi
   }
 
   [Fact]
-  public async void UploadFilesRecursively_WithSingleFile_Throws()
+  public async Task UploadFilesRecursively_WithSingleFile_Throws()
   {
     // Arrange
     var sut = new MinioStoreService(_logger.Object, new(), _minio.Object);
@@ -32,9 +32,9 @@ public class TestUploadFilesRecursively : IClassFixture<UploadFilesRecursivelyFi
       async () => await sut.UploadFilesRecursively(
         Path.Combine(_fixture.BaseUploadDirectory, _fixture.BaseFile)));
   }
-  
+
   [Fact]
-  public async void UploadFilesRecursively_WithDirectory_ListsAllFiles()
+  public async Task UploadFilesRecursively_WithDirectory_ListsAllFiles()
   {
     // Arrange
     var sut = new MinioStoreService(_logger.Object, new(), _minio.Object);
@@ -45,9 +45,9 @@ public class TestUploadFilesRecursively : IClassFixture<UploadFilesRecursivelyFi
     // Assert
     Assert.Equal(4, result.Count);
   }
-  
+
   [Fact]
-  public async void UploadFilesRecursively_WithDirectory_PreservesRelativeFilePathsOnly()
+  public async Task UploadFilesRecursively_WithDirectory_PreservesRelativeFilePathsOnly()
   {
     // Arrange
     var sut = new MinioStoreService(_logger.Object, new(), _minio.Object);
@@ -61,9 +61,9 @@ public class TestUploadFilesRecursively : IClassFixture<UploadFilesRecursivelyFi
     Assert.Contains(Path.Combine(_fixture.SubDirectory2, _fixture.File2), result);
     Assert.Contains(Path.Combine(_fixture.SubDirectory1, _fixture.SubDirectory3, _fixture.File3), result);
   }
-  
+
   [Fact]
-  public async void UploadFilesRecursively_WithTargetPrefix_PrependsPrefixToFiles()
+  public async Task UploadFilesRecursively_WithTargetPrefix_PrependsPrefixToFiles()
   {
     // Arrange
     var prefix = "test";
@@ -94,7 +94,7 @@ public class UploadFilesRecursivelyFixture
   public string File2 { get; } = "file2.md";
   public string SubDirectory3 { get; } = Guid.NewGuid().ToString();
   public string File3 { get; } = "file3.yaml";
-  
+
   public UploadFilesRecursivelyFixture()
   {
     // setup directories and files in the following structure:

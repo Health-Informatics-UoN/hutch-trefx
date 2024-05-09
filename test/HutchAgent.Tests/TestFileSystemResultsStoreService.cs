@@ -9,7 +9,7 @@ namespace HutchAgent.Tests;
 public class TestFileSystemResultsStoreService
 {
   [Fact]
-  public void StoreExists_Returns_TrueWhenLocationExists()
+  public async Task StoreExists_Returns_TrueWhenLocationExists()
   {
     // Arrange
     var existentDirName = Guid.NewGuid().ToString();
@@ -25,8 +25,8 @@ public class TestFileSystemResultsStoreService
     var serviceNonExistent = new FileSystemResultsStoreService(optionsNonExistent, logger.Object);
 
     // Act
-    var expectedForTrue = serviceExistent.StoreExists().Result;
-    var expectedForFalse = serviceNonExistent.StoreExists().Result;
+    var expectedForTrue = await serviceExistent.StoreExists();
+    var expectedForFalse = await serviceNonExistent.StoreExists();
 
     // Assert
     Assert.True(expectedForTrue);
@@ -37,7 +37,7 @@ public class TestFileSystemResultsStoreService
   }
 
   [Fact]
-  public void WriteToStore_Throws_WhenStoreNonExistent()
+  public async Task WriteToStore_Throws_WhenStoreNonExistent()
   {
     // Arrange
     var nonExistentDirName = Guid.NewGuid().ToString();
@@ -53,14 +53,14 @@ public class TestFileSystemResultsStoreService
     var action = () => service.WriteToStore(resultToUpload.ToString());
 
     // Assert
-    Assert.ThrowsAsync<DirectoryNotFoundException>(action);
+    await Assert.ThrowsAsync<DirectoryNotFoundException>(action);
 
     // Clean up
     if (resultToUpload.Exists) resultToUpload.Delete();
   }
 
   [Fact]
-  public void WriteToStore_Throws_WhenUploadTargetNonExistent()
+  public async Task WriteToStore_Throws_WhenUploadTargetNonExistent()
   {
     // Arrange
     var existentDir = new DirectoryInfo(Guid.NewGuid().ToString());
@@ -76,14 +76,14 @@ public class TestFileSystemResultsStoreService
     var action = () => service.WriteToStore(resultToUpload.ToString());
 
     // Assert
-    Assert.ThrowsAsync<FileNotFoundException>(action);
+    await Assert.ThrowsAsync<FileNotFoundException>(action);
 
     // Clean up
     if (existentDir.Exists) existentDir.Delete(recursive: true);
   }
 
   [Fact]
-  public void WriteToStore_Write_ToStore()
+  public async Task WriteToStore_Writes_ToStore()
   {
     // Arrange
     var existentDir = new DirectoryInfo(Guid.NewGuid().ToString());
@@ -97,10 +97,10 @@ public class TestFileSystemResultsStoreService
     var service = new FileSystemResultsStoreService(options, logger.Object);
 
     // Act
-    var action = () => service.WriteToStore(resultToUpload.ToString());
+    await service.WriteToStore(resultToUpload.ToString());
 
     // Assert
-    Assert.ThrowsAsync<FileNotFoundException>(action);
+    Assert.True(File.Exists(Path.Combine(existentDir.FullName, resultToUpload.Name)));
 
     // Clean up
     if (existentDir.Exists) existentDir.Delete(recursive: true);
@@ -108,7 +108,7 @@ public class TestFileSystemResultsStoreService
   }
 
   [Fact]
-  public void ResultExists_True_WhenResultInStore()
+  public async Task ResultExists_True_WhenResultInStore()
   {
     // Arrange
     var existentDir = new DirectoryInfo(Guid.NewGuid().ToString());
@@ -123,8 +123,8 @@ public class TestFileSystemResultsStoreService
     var service = new FileSystemResultsStoreService(options, logger.Object);
 
     // Act
-    var expectedForTrue = service.ResultExists(existentResult.ToString()).Result;
-    var expectedForFalse = service.ResultExists(nonExistentResult.ToString()).Result;
+    var expectedForTrue = await service.ResultExists(existentResult.ToString());
+    var expectedForFalse = await service.ResultExists(nonExistentResult.ToString());
 
     // Assert
     Assert.True(expectedForTrue);
