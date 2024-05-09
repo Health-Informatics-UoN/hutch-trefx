@@ -31,5 +31,30 @@
         "Url": "https://0.0.0.0:7239"
       }
     }
-  }
+  },
+  ,
+    "Queue": {
+      "Hostname": "localhost",
+      "UserName": "guest",
+      "Password": "guest"
+    },
+    "StoreDefaults": {
+      "AccessKey": "Jhu8rAIJHiXpbkyEqMXm",
+      "SecretKey": "kIOeNYLp0lyPcdO1ScbkSaRtuLxgN4MhXiClwROI",
+      "Secure": false,
+      "Bucket": "hutch.bucket",
+      "Host": "localhost:9000"
+    },
+    "WorkflowExecutor": {
+      "ExecutorPath": "/home/azureuser/wfexs",
+      "VirtualEnvironmentPath": "/home/azureuser/wfexs/.pyWEenv/bin/activate",
+      "LocalConfigPath": "/home/azureuser/wfexs-config.yaml",
+      "RemainAttached": true
+    },
+    "ControllerApi": {
+      "BaseUrl": "http://localhost:5289/api"
+    },
+    "Flags": {
+      "RetainFailures": true
+    }
 }
