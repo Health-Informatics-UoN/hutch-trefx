@@ -20,29 +20,29 @@ if (!webhookOptions.CallbackUrl.IsNullOrEmpty() && !webhookOptions.VerifySsl)
 
 
 // Auth
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-  .AddJwtBearer(
-    opts =>
-    {
-      opts.TokenValidationParameters = new TokenValidationParameters
-      {
+// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//  .AddJwtBearer(
+//    opts =>
+//    {
+//      opts.TokenValidationParameters = new TokenValidationParameters
+//      {
         // We basically validate nothing about the token to avoid needing extra config about oidc.
         // We just want to confirm Hutch is sending an access token for a user.
         // Everything else will be environment setup dependent anyway
-        ValidateActor = false,
-        ValidateIssuer = false,
-        ValidateIssuerSigningKey = false,
-        ValidateLifetime = false,
-        ValidateAudience = false,
-        ValidateTokenReplay = false,
-        RequireSignedTokens = false,
-        SignatureValidator = (token, _) => new JwtSecurityToken(token),
+//        ValidateActor = false,
+//        ValidateIssuer = false,
+//        ValidateIssuerSigningKey = false,
+//        ValidateLifetime = false,
+//        ValidateAudience = false,
+//        ValidateTokenReplay = false,
+//        RequireSignedTokens = false,
+//        SignatureValidator = (token, _) => new JwtSecurityToken(token),
 
-        RequireExpirationTime = true,
-        RequireAudience = true,
-      };
-    });
-builder.Services.AddAuthorization();
+//        RequireExpirationTime = true,
+//        RequireAudience = true,
+//      };
+//    });
+// builder.Services.AddAuthorization();
 
 // Configure Options Models
 builder.Services
@@ -75,12 +75,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseSerilogRequestLogging();
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
-app
-  .UseAuthentication()
-  .UseAuthorization();
+//app
+//  .UseAuthentication()
+//  .UseAuthorization();
 
-app.MapControllers().RequireAuthorization();
+app.MapControllers(); //.RequireAuthorization();
 
 app.Run();

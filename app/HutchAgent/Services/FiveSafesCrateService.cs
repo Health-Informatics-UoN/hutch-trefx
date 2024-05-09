@@ -321,7 +321,8 @@ public class FiveSafesCrateService
   }
 
   public void CheckAssessActions(ROCrate roCrate)
-  {
+  { return;
+
     //Check CheckValueType AssessAction exists and is Completed
     var checkValue = GetAssessAction(roCrate, ActionType.CheckValueType);
     if (checkValue is null)

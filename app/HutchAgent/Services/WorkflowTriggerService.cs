@@ -349,6 +349,9 @@ public partial class WorkflowTriggerService
     {
       // Try and get the data access details
       var dataAccess = JsonSerializer.Deserialize<DatabaseConnectionDetails>(workflowJob.DataAccess ?? "");
+
+_logger.LogDebug($"DataAccess payload: {JsonSerializer.Serialize(dataAccess)}");
+
       // set environment params to match dataAccess details
       if (dataAccess is not null)
       {
@@ -366,6 +369,7 @@ public partial class WorkflowTriggerService
       // 
       // it may fail if it intends to try and access the data source,
       // but that'll get handled and reported in the usual way.
+_logger.LogDebug($"Data Access deserialization failure: {workflowJob?.DataAccess ?? "null"}");
     }
 
     stageFile.EnvironmentVars = envVars;
