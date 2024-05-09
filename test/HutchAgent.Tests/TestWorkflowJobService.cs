@@ -11,7 +11,7 @@ public class TestWorkflowJobService : IDisposable
 {
   private readonly HutchAgentContext _db;
   private readonly IMapper _mapper;
-  
+
   private readonly string _id1 = Guid.NewGuid().ToString();
   private readonly string _id2 = Guid.NewGuid().ToString();
 
@@ -23,16 +23,13 @@ public class TestWorkflowJobService : IDisposable
       new DbContextOptionsBuilder<HutchAgentContext>()
         .UseInMemoryDatabase("TestWorkflowJobService")
         .Options);
-    
-    var config = new MapperConfiguration(cfg =>
-    {
-      cfg.AddProfile<WorkflowJobProfile>();
-    });
+
+    var config = new MapperConfiguration(cfg => { cfg.AddProfile<WorkflowJobProfile>(); });
     _mapper = config.CreateMapper();
   }
 
   [Fact]
-  public async void Create_Creates_NewJob()
+  public async Task Create_Creates_NewJob()
   {
     // Arrange
     var jobWorkDir = Path.Combine(_baseWorkingDirectory, _id1);
@@ -54,7 +51,7 @@ public class TestWorkflowJobService : IDisposable
   }
 
   [Fact]
-  public async void List_Returns_AllJobs()
+  public async Task List_Returns_AllJobs()
   {
     // Arrange
     var storedValues = new List<Data.Entities.WorkflowJob>()
@@ -87,7 +84,7 @@ public class TestWorkflowJobService : IDisposable
   }
 
   [Fact]
-  public async void Get_Returns_JobWithSpecifiedId()
+  public async Task Get_Returns_JobWithSpecifiedId()
   {
     // Arrange
     var workDir = Path.Combine(_baseWorkingDirectory, _id1);
@@ -120,7 +117,7 @@ public class TestWorkflowJobService : IDisposable
   }
 
   [Fact]
-  public async void Get_Throws_KeyNotFoundExceptionWhenKeyNotFound()
+  public async Task Get_Throws_KeyNotFoundExceptionWhenKeyNotFound()
   {
     // Arrange
     var keyThatShouldNotExist = _id1;
@@ -135,7 +132,7 @@ public class TestWorkflowJobService : IDisposable
   }
 
   [Fact]
-  public async void Set_Updates_PropertiesAsSpecified()
+  public async Task Set_Updates_PropertiesAsSpecified()
   {
     // Arrange
     var workDir = Path.Combine(_baseWorkingDirectory, _id1);
@@ -168,7 +165,7 @@ public class TestWorkflowJobService : IDisposable
   }
 
   [Fact]
-  public async void Set_Throws_KeyNotFoundExceptionWhenKeyNotFound()
+  public async Task Set_Throws_KeyNotFoundExceptionWhenKeyNotFound()
   {
     // Arrange
     var newObject = new WorkflowJob
@@ -186,7 +183,7 @@ public class TestWorkflowJobService : IDisposable
   }
 
   [Fact]
-  public async void Delete_Removes_JobWithSpecifiedId()
+  public async Task Delete_Removes_JobWithSpecifiedId()
   {
     // Arrange
     var originalEntity = new Data.Entities.WorkflowJob()
@@ -207,7 +204,7 @@ public class TestWorkflowJobService : IDisposable
   }
 
   [Fact]
-  public async void Delete_Succeeds_WhenJobNotFound()
+  public async Task Delete_Succeeds_WhenJobNotFound()
   {
     // Arrange
     var service = new WorkflowJobService(_db, _mapper);
