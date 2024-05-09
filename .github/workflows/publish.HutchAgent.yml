@@ -18,7 +18,7 @@ env:
   ### Configure these
 
   dotnet-build-config: ${{ github.event.inputs.build-config || 'release' }}
-  dotnet-version: 7.0.x
+  dotnet-version: 8.0.x
 
   ###
 
