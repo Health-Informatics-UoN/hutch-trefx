@@ -116,6 +116,7 @@ public class InitiateEgressActionHandler : IActionHandler
     var egressDetails = useDefaultStore
       ? null
       : await _controller.RequestEgressBucket(job.Id);
+    _logger.LogInformation("egress details:{details}",egressDetails);
 
     var store = await _storeFactory.Create(_mapper.Map<MinioOptions>(egressDetails));
 
