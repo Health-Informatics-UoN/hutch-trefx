@@ -126,7 +126,15 @@ public class ControllerApiService
       });
 
     if (!_identity.IsTokenValid(_accessToken)) await UpdateToken();
-    await _http.Request(url).WithOAuthBearerToken(_accessToken).PostAsync();
+    try
+    {
+      var response = await _http.Request(url).WithOAuthBearerToken(_accessToken).PostAsync();
+    }
+    catch (FlurlHttpException e)
+    {
+      _logger.LogError("UpdateStatusForTRE call failed:{ResponseBody}", await e.GetResponseStringAsync());
+      throw;
+    }
     // TODO attempt refreshing if token rejected?
   }
 
