@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HutchAgent", "app\HutchAgen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HutchAgent.Tests", "test\HutchAgent.Tests\HutchAgent.Tests.csproj", "{6066B321-C00D-4478-8F95-71EEB91BC797}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DummyControllerApi", "app\DummyControllerApi\DummyControllerApi.csproj", "{D8EB96F0-45C6-4AF1-8743-3E05F77459CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HutchController", "app\HutchController\HutchController.csproj", "{D8EB96F0-45C6-4AF1-8743-3E05F77459CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
