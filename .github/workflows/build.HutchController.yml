@@ -1,0 +1,33 @@
+name: Build HutchController
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - app/HutchController/**
+      - .github/workflows/build.HutchController.yml
+
+env:
+  # Configure these
+  build-config: Release
+  dotnet-version: 8.x
+  project: ./app/HutchController/HutchController.csproj
+
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.dotnet-version }}
+      - name: Build HutchController
+        run: >-
+          dotnet build
+          ${{ env.project }}
+          -c ${{ env.build-config }}
