@@ -4,8 +4,8 @@ on:
   push:
     branches: [main]
     paths:
-      - app/DummyControllerApi/**
-      - .github/workflows/release.DummyControllerApi.yml
+      - app/HutchController/**
+      - .github/workflows/publish.HutchController.yml
 
 env:
   namespace: hutchstack
@@ -13,6 +13,8 @@ env:
 
 jobs:
 # TODO: We should publish .NET Binaries like we do for Hutch Agent, and then also build and push granularly tagged (e.g. commit hash) container images OF THOSE BINARIES
+
+
   publish:
     runs-on: ubuntu-latest
     steps:
