@@ -18,7 +18,7 @@ env:
   ### Configure these
 
   dotnet-build-config: ${{ github.event.inputs.build-config || 'release' }}
-  dotnet-version: 8.0.x
+  dotnet-version: 8.x
 
   ###
 
@@ -47,8 +47,8 @@ jobs:
           - artifact: dotnet
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.dotnet-version }}
 
@@ -58,7 +58,6 @@ jobs:
           ${{ env.project }}
           -c ${{ env.dotnet-build-config }}
           -o ${{ env.publish-dir }}
-          -p:GitHash=${GITHUB_SHA::8}
           ${{ matrix.args }}
 
       - name: dotnet test
@@ -67,12 +66,12 @@ jobs:
           ${{ env.test-project }}
           -c ${{ env.dotnet-build-config }}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: hutch_${{ matrix.artifact == 'dotnet' && format('{0}-{1}', matrix.artifact, env.dotnet-version) || matrix.artifact }}
           path: ${{ env.publish-dir }}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: hutch_installation
           path: ansible

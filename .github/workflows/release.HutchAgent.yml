@@ -6,12 +6,12 @@
 # downloads the published artifacts
 # creates a release using the app version of the commit
 # the artifacts were published from
-name: GitHub Release
+name: HutchAgent GitHub Release
 on:
   workflow_dispatch:
     inputs:
       publish-run-id:
-        description: The Workflow Run ID for a successful Publish of Hutch
+        description: The Workflow Run ID for a successful Publish of Hutch Agent
         required: true
         type: string
       is-latest:
@@ -36,7 +36,7 @@ jobs:
     steps:
       - name: Get workflow run
         id: run-info
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const { data: { workflow_id, head_sha, conclusion } } =
@@ -60,7 +60,7 @@ jobs:
     steps:
       # determine version from the workflow run's commit
       - name: Checkout target workflow run's commit
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.fetch-run.outputs.publish-commit }}
       - name: Read version
@@ -71,7 +71,7 @@ jobs:
 
       # download artifacts from the run we want on the release
       - name: Download workflow artifacts
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v3
         with:
           run_id: ${{ env.run-id }}
           skip_unpack: true # leave them zipped
@@ -89,7 +89,7 @@ jobs:
             ## Assets available for download:
 
             - Hutch Agent for Linux (x64) native
-            - Hutch Agent for the .NET Runtime (cross platform, requires .NET 7.x)
+            - Hutch Agent for the .NET Runtime (cross platform, requires .NET 8.x)
           generateReleaseNotes: true
           prerelease: ${{ steps.version.outputs.pre-release != '' }}
           makeLatest: ${{ env.is-latest }}

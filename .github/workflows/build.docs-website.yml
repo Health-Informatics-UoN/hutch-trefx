@@ -10,20 +10,20 @@ on:
 
 env:
   # Configure these
-  CI_node-version: "20"
-  CI_package: website
+  node-version: "20"
+  package: website
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: pnpm/action-setup@v2.0.1
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
           version: 8.6.12
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.CI_node-version }}
+          node-version: ${{ env.node-version }}
           cache: pnpm
       - run: pnpm i --frozen-lockfile --filter ${{ env.CI_package }}
       - run: pnpm --filter ${{ env.CI_package }} build
