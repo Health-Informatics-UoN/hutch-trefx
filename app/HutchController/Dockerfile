@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["app/HutchController/HutchController.csproj", "app/HutchController/"]
+COPY ["HutchController.csproj", "app/HutchController/"]
 RUN dotnet restore "app/HutchController/HutchController.csproj"
-COPY . .
 WORKDIR "/src/app/HutchController"
+COPY . .
 RUN dotnet build "HutchController.csproj" -c Release -o /app/build
 
 FROM build AS publish
