@@ -25,5 +25,5 @@ jobs:
         with:
           node-version: ${{ env.node-version }}
           cache: pnpm
-      - run: pnpm i --frozen-lockfile --filter ${{ env.CI_package }}
-      - run: pnpm --filter ${{ env.CI_package }} build
+      - run: pnpm i --frozen-lockfile --filter ${{ env.package }}
+      - run: pnpm --filter ${{ env.package }} build
