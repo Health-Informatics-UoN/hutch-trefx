@@ -12,6 +12,11 @@ env:
   repo-name: dummy-controller-api
 
 jobs:
+# TODO: this shouldn't build like it does today; it should:
+# - generate a github release with a given publish run's assets
+# - tag the publish run's container image as a human version matching the github release
+# - optionally tag the github release and container image as `latest`
+# this will better match the HutchAgent publish/release model, and will be binary atomic from the point of publish.
   publish:
     runs-on: ubuntu-latest
     steps:
