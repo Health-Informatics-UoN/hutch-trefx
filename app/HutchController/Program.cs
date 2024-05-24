@@ -1,106 +1,23 @@
+using System.CommandLine.Builder;
+using System.CommandLine.Parsing;
 using System.IdentityModel.Tokens.Jwt;
 using DummyControllerApi.Config;
 using DummyControllerApi.Services;
 using DummyControllerApi.Utilities;
 using Flurl.Http;
+using Hutch.Controller.Commands.Helpers;
+using Hutch.Controller.Startup.Cli;
+using Hutch.Controller.Startup.Web;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+// Any global initialisation stuff here
 
-builder.Host.UseSerilog((context, configuration) =>
-  configuration.ReadFrom.Configuration(context.Configuration));
-
-// Flurl configuration
-var webhookOptions = builder.Configuration.GetSection("WebHooks").Get<WebHookOptions>() ?? new();
-if (!webhookOptions.CallbackUrl.IsNullOrEmpty() && !webhookOptions.VerifySsl)
-  FlurlHttp.ConfigureClient(webhookOptions.CallbackUrl, cli =>
-    cli.Settings.HttpClientFactory = new UntrustedCertClientFactory());
-
-// Configure Options Models
-builder.Services
-  .Configure<EgressBucketDetailsOptions>(builder.Configuration.GetSection("EgressBucketDetails"))
-  .Configure<WebHookOptions>(builder.Configuration.GetSection("WebHooks"))
-  .Configure<HttpsConfig>(builder.Configuration.GetSection("HttpsConfig"))
-  .Configure<AuthConfig>(builder.Configuration.GetSection("AuthConfig"));
-
-// Auth
-var authConfig = new AuthConfig();
-builder.Configuration.GetSection("AuthConfig").Bind(authConfig);
-if (!authConfig.DisableAuth)
-{
-  builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(
-      opts =>
-      {
-        opts.TokenValidationParameters = new TokenValidationParameters
-        {
-          // We basically validate nothing about the token to avoid needing extra config about oidc.
-          // We just want to confirm Hutch is sending an access token for a user.
-          // Everything else will be environment setup dependent anyway
-          ValidateActor = false,
-          ValidateIssuer = false,
-          ValidateIssuerSigningKey = false,
-          ValidateLifetime = false,
-          ValidateAudience = false,
-          ValidateTokenReplay = false,
-          RequireSignedTokens = false,
-          SignatureValidator = (token, _) => new JwtSecurityToken(token),
-
-          RequireExpirationTime = true,
-          RequireAudience = true,
-        };
-      });
-  builder.Services.AddAuthorization();
-}
-
-// MVC and stuff
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-
-// Application Services
-builder.Services.AddTransient<WebHookService>();
-
-// Use this combo for delaying approvals while running
-builder.Services
-  .AddSingleton<InMemoryApprovalQueue>()
-  .AddHostedService<EgressApprovalHostedService>();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-  app.UseSwagger();
-  app.UseSwaggerUI();
-}
-
-app.UseSerilogRequestLogging();
-
-// HTTPS Redirect
-var httpsConfig = new HttpsConfig();
-app.Configuration.GetSection("HttpsConfig").Bind(httpsConfig);
-if (!httpsConfig.DisableHttpsRedirection)
-{
-  app.UseHttpsRedirection();
-}
-
-// Use auth?
-if (!authConfig.DisableAuth)
-{
-  app
-    .UseAuthentication()
-    .UseAuthorization();
-
-  app.MapControllers().RequireAuthorization();
-}
-else
-{
-  app.MapControllers();
-}
-
-app.Run();
+// Initialise the command line parser and run the appropriate entrypoint
+await new CommandLineBuilder(new CliEntrypoint())
+  .UseDefaults()
+  .UseRootCommandBypass(args, WebEntrypoint.Run)
+  .UseCliHostDefaults(args)
+  .Build()
+  .InvokeAsync(args);
