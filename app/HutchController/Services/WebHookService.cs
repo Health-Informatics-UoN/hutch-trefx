@@ -1,12 +1,12 @@
-using DummyControllerApi.Config;
-using DummyControllerApi.Constants;
-using DummyControllerApi.Models;
-using DummyControllerApi.Models.WebHooks;
 using Flurl.Http;
+using Hutch.Controller.Config;
+using Hutch.Controller.Constants;
+using Hutch.Controller.Models;
+using Hutch.Controller.Models.WebHooks;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DummyControllerApi.Services;
+namespace Hutch.Controller.Services;
 
 public class WebHookService
 {

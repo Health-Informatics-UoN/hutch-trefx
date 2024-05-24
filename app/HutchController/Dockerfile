@@ -17,4 +17,4 @@ RUN dotnet publish "HutchController.csproj" -c Release -o /app/publish /p:UseApp
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "HutchController.dll"]
+ENTRYPOINT ["dotnet", "hutch-controller.dll"]

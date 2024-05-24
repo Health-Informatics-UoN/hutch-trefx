@@ -1,11 +1,11 @@
 using System.Text.Json;
-using DummyControllerApi.Config;
-using DummyControllerApi.Models;
 using Flurl;
 using Flurl.Http;
+using Hutch.Controller.Config;
+using Hutch.Controller.Models;
 using Microsoft.Extensions.Options;
 
-namespace DummyControllerApi.Services;
+namespace Hutch.Controller.Services;
 
 public class EgressApprovalHostedService : BackgroundService
 {

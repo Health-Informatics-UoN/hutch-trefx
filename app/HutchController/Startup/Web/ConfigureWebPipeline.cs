@@ -1,6 +1,6 @@
 using System.Text.Json;
 using ClacksMiddleware.Extensions;
-using DummyControllerApi.Config;
+using Hutch.Controller.Config;
 using Hutch.Controller.Startup.Web.Extensions;
 using Hutch.Controller.Startup.Web.Middleware;
 using Microsoft.AspNetCore.Hosting.Server;

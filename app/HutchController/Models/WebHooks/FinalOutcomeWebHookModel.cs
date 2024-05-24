@@ -1,4 +1,4 @@
-namespace DummyControllerApi.Models.WebHooks;
+namespace Hutch.Controller.Models.WebHooks;
 
 public class FinalOutcomeWebHookModel
 {

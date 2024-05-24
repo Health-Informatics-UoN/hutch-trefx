@@ -1,4 +1,4 @@
-namespace DummyControllerApi.Services;
+namespace Hutch.Controller.Services;
 
 public class InMemoryApprovalQueue
 {

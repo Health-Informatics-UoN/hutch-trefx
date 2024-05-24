@@ -1,12 +1,12 @@
 using System.Text.Json;
-using DummyControllerApi.Config;
-using DummyControllerApi.Models;
-using DummyControllerApi.Services;
+using Hutch.Controller.Config;
+using Hutch.Controller.Models;
+using Hutch.Controller.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace DummyControllerApi.Controllers;
+namespace Hutch.Controller.Controllers;
 
 // Disclaimer:
 // Much of this controller is not how I would expect to conventionally build an ASP.NET Core API

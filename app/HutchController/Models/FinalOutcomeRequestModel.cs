@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace DummyControllerApi.Models;
+namespace Hutch.Controller.Models;
 
 public class FinalOutcomeRequestModel
 {

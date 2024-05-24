@@ -1,4 +1,4 @@
-namespace DummyControllerApi.Models;
+namespace Hutch.Controller.Models;
 
 public class HutchApprovalRequestModel
 {

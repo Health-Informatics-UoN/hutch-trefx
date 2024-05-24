@@ -1,8 +1,8 @@
 using System.IdentityModel.Tokens.Jwt;
-using DummyControllerApi.Config;
-using DummyControllerApi.Services;
-using DummyControllerApi.Utilities;
 using Flurl.Http;
+using Hutch.Controller.Config;
+using Hutch.Controller.Services;
+using Hutch.Controller.Utilities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;

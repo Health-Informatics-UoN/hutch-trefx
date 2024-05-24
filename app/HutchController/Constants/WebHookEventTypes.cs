@@ -1,4 +1,4 @@
-namespace DummyControllerApi.Constants;
+namespace Hutch.Controller.Constants;
 
 public enum WebHookEventTypes
 {

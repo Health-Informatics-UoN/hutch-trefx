@@ -1,4 +1,4 @@
-namespace DummyControllerApi.Config;
+namespace Hutch.Controller.Config;
 
 public class AuthConfig
 {

@@ -1,6 +1,6 @@
 using Flurl.Http.Configuration;
 
-namespace DummyControllerApi.Utilities;
+namespace Hutch.Controller.Utilities;
 
 public class UntrustedCertClientFactory : DefaultHttpClientFactory
 {
