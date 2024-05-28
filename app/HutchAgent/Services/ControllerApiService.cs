@@ -122,7 +122,8 @@ public class ControllerApiService
         new FilesReadyForReviewRequest()
         {
           SubId = jobId,
-          Files = files
+          Files = files,
+          TesId = jobId
         });
     // TODO attempt refreshing if token rejected?
   }
