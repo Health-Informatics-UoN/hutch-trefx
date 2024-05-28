@@ -114,6 +114,11 @@ Use these settings to configure `HutchAgent`'s logging behaviour.
 |---------------|----------------------------|-----------|---------|
 | `DisableAuth` | Disables app authorisation | `boolean` | `false` |
 
+### HTTPS redirection
+| Variable name             | Description                | Type      | Default |
+|---------------------------|----------------------------|-----------|---------|
+| `DisableHttpsRedirection` | Disables HTTPS redirection | `boolean` | `false` |
+
 ### ControllerApi
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
