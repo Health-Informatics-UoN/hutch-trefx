@@ -109,6 +109,11 @@ Use these settings to configure `HutchAgent`'s logging behaviour.
 |---------------|-------------|------|---------|
 |`ConnectionStrings__AgentDb`|The connection string for Hutch's internal database|`string`|`Data Source=HutchAgent.db`|
 
+### Authorisation
+| Variable name | Description                | Type      | Default |
+|---------------|----------------------------|-----------|---------|
+| `DisableAuth` | Disables app authorisation | `boolean` | `false` |
+
 ### ControllerApi
 | Variable name | Description | Type | Default |
 |---------------|-------------|------|---------|
@@ -132,11 +137,11 @@ Use these settings to configure `HutchAgent`'s logging behaviour.
 
 ## Feature flags (Development-only)
 ### Flags
-| Variable name | Description | Type | Default |
-|---------------|-------------|------|---------|
-|`StandaloneMode`|Hutch will skip TRE Controller interactions|`bool`|`false`|
-|`RetainFailures`|Hutch will not clean up working directories or database records for jobs that fail|`bool`|`false`|
-
+| Variable name    | Description                                                                        | Type   | Default |
+|------------------|------------------------------------------------------------------------------------|--------|---------|
+| `StandaloneMode` | Hutch will skip TRE Controller interactions                                        | `bool` | `false` |
+| `RetainFailures` | Hutch will not clean up working directories or database records for jobs that fail | `bool` | `false` |
+| `UseOidc`        | Hutch will not use OIDC for auth                                                   | `bool` | `false` |
 
 ## Examples
 ### `appsettings.json`
