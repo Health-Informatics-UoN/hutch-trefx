@@ -184,8 +184,8 @@ public class ControllerApiService
       request = request.WithOAuthBearerToken(_accessToken);
     }
 
-    _logger.LogInformation("Auth Token:{}",_accessToken);
-    _logger.LogInformation("File URL:{}",resultsObjectId);
+    _logger.LogInformation("Auth Token:{accessToken}",_accessToken);
+    _logger.LogInformation("File URL:{resultsObjectId}",resultsObjectId);
     await request
       .PostJsonAsync(new FinalOutcomeRequest
       {
