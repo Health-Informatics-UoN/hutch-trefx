@@ -14,7 +14,7 @@ public class WorkflowStageFile
 
   [YamlMember(Alias = "cacheDir")] public string CacheDirectory { get; set; } = "/tmp/wfexszn6siq2jtmpcache";
 
-  [YamlMember(Alias = "crypt4gh")] public Crypt4ghOptions Crypt4Gh { get; set; } = new();
+  // [YamlMember(Alias = "crypt4gh")] public Crypt4ghOptions Crypt4Gh { get; set; } = new();
 
   [YamlMember(Alias = "outputs")] public object Outputs = new();
 

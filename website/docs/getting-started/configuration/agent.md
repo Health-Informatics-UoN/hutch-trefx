@@ -12,6 +12,11 @@ Hutch can be configured using the following source in [the usual .NET way](https
 - Command line arguments
 - (.NET User Secrets in development)
 
+:::tip 
+If you configure Hutch to run as a systemd Service (like Ansible does),
+you can configure it via Environment Variables in the Service File.
+:::
+
 ## Available options
 
 ### Paths
