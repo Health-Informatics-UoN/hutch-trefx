@@ -16,7 +16,7 @@ Hutch comes with a `docker-compose` service to run an instance Nexus. This servi
 
 ### Creating a file store on Nexus
 
-Create a file store on your Nexus instance called `hutchfiles` following [these instructions](/hutch/docs/external-systems/nexus/file-store).
+Create a file store on your Nexus instance called `hutchfiles` following [these instructions](/docs/external-systems/nexus/file-store).
 
 ### Upload trusted workflows to Nexus
 

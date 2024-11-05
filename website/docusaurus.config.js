@@ -9,7 +9,7 @@ const config = {
   title: "Hutch",
   tagline: "Dinosaurs are cool",
   url: "https://health-informatics-uon.github.io",
-  baseUrl: "/hutch/",
+  baseUrl: "/hutch-trefx/",
   trailingSlash: false,
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
@@ -18,7 +18,7 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "health-informatics-uon", // Usually your GitHub org/user name.
-  projectName: "hutch", // Usually your repo name.
+  projectName: "hutch-trefx", // Usually your repo name.
   deploymentBranch: "gh-pages",
 
   // Even if you don't use internalization, you can use this field to set useful
@@ -38,7 +38,7 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/health-informatics-uon/hutch/tree/main/website/",
+          editUrl: "https://github.com/health-informatics-uon/hutch-trefx/tree/main/website/",
         },
         blog: false,
         theme: {
@@ -71,7 +71,7 @@ const config = {
             label: "User Guide",
           },
           {
-            href: "https://github.com/health-informatics-uon/hutch",
+            href: "https://github.com/health-informatics-uon/hutch-trefx",
             position: "right",
             className: "header-github-link",
             "aria-label": "GitHub repository",
@@ -90,7 +90,7 @@ const config = {
               },
               {
                 label: "Hutch GitHub",
-                href: "https://github.com/health-informatics-uon/hutch",
+                href: "https://github.com/health-informatics-uon/hutch-trefx",
               },
               {
                 label: "TRE-FX Project Website",
