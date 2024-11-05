@@ -8,7 +8,7 @@ sidebar_position: 2
 Navigate to the web portal in the web browser (`localhost:8081`, or the port you mapped the portal to on the host) and sign in.
 
 :::info
-The first time you attempt to login, it will give you the username and tell you to find the admin password (see [Using Nexus](/hutch/docs/external-systems/nexus/using_nexus)). Once logged in you will be promtped to provide a new password for the admin user.
+The first time you attempt to login, it will give you the username and tell you to find the admin password (see [Using Nexus](/docs/external-systems/nexus/using_nexus)). Once logged in you will be promtped to provide a new password for the admin user.
 :::
 
 Go to the server administration tab and select "Repositories" under "Repository".
