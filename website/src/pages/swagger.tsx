@@ -5,7 +5,7 @@ import "swagger-ui-react/swagger-ui.css";
 
 const SwaggerPage = () => (
   <Layout>
-    <SwaggerUI url="/hutch/swagger.json" supportedSubmitMethods={[]} />
+    <SwaggerUI url="/hutch-trefx/swagger.json" supportedSubmitMethods={[]} />
   </Layout>
 );
 
