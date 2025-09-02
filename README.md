@@ -1,3 +1,12 @@
+> [!NOTE]
+> This repository is now archived.
+>
+> This version of Hutch is an artefact of the DARE UK [TRE-FX](https://trefx.uk/) project.
+> 
+> For what happened next, see:
+> - [Federated Research - Five Safes TES](https://docs.federated-analytics.ac.uk/five_safes_te)
+> - [Hutch Documentation](https://hutch.health)
+>
 
 ![Hutch](https://raw.githubusercontent.com/HDRUK/hutch/main/assets/Hutch%20splash%20bg.svg)
 
